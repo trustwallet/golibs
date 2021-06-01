@@ -22,11 +22,17 @@ func (i *HexNumber) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	hex := strings.Replace(resultStr, "0x", "", 1)
+	var value *big.Int
+	if resultStr == "0x" {
+		value = new(big.Int)
+	} else {
+		hex := strings.Replace(resultStr, "0x", "", 1)
 
-	value, success := new(big.Int).SetString(hex, 16)
-	if !success {
-		return fmt.Errorf("could not parse hex value %v", resultStr)
+		var ok bool
+		value, ok = new(big.Int).SetString(hex, 16)
+		if !ok {
+			return fmt.Errorf("could not parse hex value %v", resultStr)
+		}
 	}
 
 	*i = HexNumber(*value)
