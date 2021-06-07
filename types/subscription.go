@@ -1,6 +1,10 @@
 package types
 
-import "strconv"
+import (
+	"strconv"
+
+	"github.com/trustwallet/golibs/types/v1"
+)
 
 type (
 	Subscriptions map[string][]string
@@ -18,8 +22,8 @@ type (
 	}
 
 	TransactionNotification struct {
-		Action TransactionType `json:"action"`
-		Result Tx              `json:"result"`
+		Action types.TransactionType `json:"action"`
+		Result types.Tx              `json:"result"`
 	}
 )
 
